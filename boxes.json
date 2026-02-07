@@ -1,14 +1,14 @@
 [
-  { "speed": 1, "pos": -1 },
-  { "speed": 2, "pos": -1 },
-  { "speed": 3, "pos": -1 },
-  { "speed": 4, "pos": -1 },
-  { "speed": 5, "pos": -1 },
-  { "speed": 6, "pos": -1 },
-  { "speed": 10, "pos": -1 },
-  { "speed": 12, "pos": -1 },
-  { "speed": 15, "pos": -1 },
-  { "speed": 20, "pos": -1 },
+  { "speed": 60, "pos": -1 },
   { "speed": 30, "pos": -1 },
-  { "speed": 60, "pos": -1 }
+  { "speed": 20, "pos": -1 },
+  { "speed": 15, "pos": -1 },
+  { "speed": 12, "pos": -1 },
+  { "speed": 10, "pos": -1 },
+  { "speed": 6, "pos": -1 },
+  { "speed": 5, "pos": -1 },
+  { "speed": 4, "pos": -1 },
+  { "speed": 3, "pos": -1 },
+  { "speed": 2, "pos": -1 },
+  { "speed": 1, "pos": -1 }
 ]

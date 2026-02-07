@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Game Loop</title>
+    <style>
+      body {
+        background-color: #000;
+
+        > * {
+          width: 900px;
+        }
+      }
+      canvas {
+        background-color: #fff;
+      }
+      main {
+        background-color: #fff;
+        padding-block: 1em;
+
+        div {
+          padding: 0.5em;
+        }
+      }
+      label {
+        display: inline-block;
+        width: 15ch;
+      }
+      a {
+        padding-block: 1em;
+        color: #fff;
+        font-size: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas width="900" height="180"></canvas>
+    <main>
+      <div>
+        <label for="$timestamp">Timestamp</label><span id="$timestamp"></span>
+      </div>
+      <div>
+        <label for="$stepCount">Step Count</label><span id="$stepCount"></span>
+      </div>
+      <div>
+        <label for="$dateNow">Date Now</label><span id="$dateNow"></span>
+      </div>
+      <div>
+        <label for="$updateCount">Update Count</label
+        ><span id="$updateCount"></span>
+      </div>
+    </main>
+    <br />
+    <a href="./index.html">INDEX</a>
+
+    <script>
+      (() => {
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+        const MAX_FPS = 60;
+        const MOTION_INC = 0.25;
+        const boxes = {
+          '#700': { speed: 1, pos: -1 },
+          '#f00': { speed: 2, pos: -1 },
+          '#f70': { speed: 3, pos: -1 },
+          '#ff0': { speed: 4, pos: -1 },
+          '#7f0': { speed: 5, pos: -1 },
+          '#0f0': { speed: 6, pos: -1 },
+          '#0f7': { speed: 10, pos: -1 },
+          '#0ff': { speed: 12, pos: -1 },
+          '#07f': { speed: 15, pos: -1 },
+          '#00f': { speed: 20, pos: -1 },
+          '#70f': { speed: 30, pos: -1 },
+          '#f0f': { speed: 60, pos: -1 },
+        };
+
+        const BOX_SIZE = 15;
+        let stepCount = 0;
+
+        function updateState() {
+          let stateChanged = [];
+          Object.entries(boxes).forEach(([col, { speed, pos }], idx) => {
+            const stepSize = MAX_FPS / speed;
+            const step = stepCount % stepSize;
+
+            if (!step) {
+              stateChanged.push(speed);
+              boxes[col].pos = (pos += MOTION_INC) % 60;
+            }
+          });
+          return stateChanged.join();
+        }
+
+        function draw(timestamp) {
+          const updateCount = updateState();
+          if (updateCount) {
+            ctx.clearRect(0, 0, 900, 180);
+            Object.entries(boxes).forEach(([col, { pos }], idx) => {
+              ctx.fillStyle = col;
+              ctx.fillRect(pos * BOX_SIZE, idx * BOX_SIZE, BOX_SIZE, BOX_SIZE); // x,y,w,h
+            });
+          }
+          const dateNow = Date();
+          $timestamp.textContent = timestamp;
+          $stepCount.textContent = `${stepCount} (${stepCount % MAX_FPS})`;
+          $dateNow.textContent = dateNow;
+          $updateCount.textContent = updateCount;
+          console.log(
+            `${timestamp}`.padStart(8),
+            `${stepCount}`.padStart(5),
+            // `${dateNow}`.padStart(56),
+            `${updateCount}`.padStart(30),
+          );
+          stepCount++;
+          // stepCount < 60 &&
+          requestAnimationFrame(draw);
+        }
+
+        requestAnimationFrame(draw);
+      })();
+    </script>
+  </body>
+</html>

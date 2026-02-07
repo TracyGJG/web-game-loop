@@ -3,6 +3,7 @@ export default (motionInc, BOXES) => {
   const ctx = canvas.getContext('2d');
   const MAX_FPS = 60;
   const BOX_SIZE = 15;
+  const LOOP = false;
   const boxes = BOXES.map(({ speed, pos }) => ({
     speed,
     pos: pos * motionInc,
@@ -28,7 +29,7 @@ export default (motionInc, BOXES) => {
     const updateCount = updateState();
     if (updateCount) {
       ctx.clearRect(0, 0, 900, 180);
-      boxes.forEach(({ speed, pos }, idx) => {
+      boxes.forEach(({ pos }, idx) => {
         ctx.fillStyle = `oklch(50% 100% ${idx * 30}deg)`;
         ctx.fillRect(pos * BOX_SIZE, idx * BOX_SIZE, BOX_SIZE, BOX_SIZE); // x,y,w,h
       });
@@ -45,8 +46,8 @@ export default (motionInc, BOXES) => {
       `${updateCount}`.padStart(30),
     );
     stepCount++;
-    // stepCount < 60 &&
-    requestAnimationFrame(draw);
+    (LOOP || stepCount < (MAX_FPS - 1 + motionInc) / motionInc) &&
+      requestAnimationFrame(draw);
   }
 
   requestAnimationFrame(draw);

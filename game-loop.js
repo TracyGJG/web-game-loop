@@ -6,7 +6,8 @@ export default (motionInc, BOXES, ctx, canvas, LOOP) => {
     speed,
     pos: pos * motionInc,
   }));
-
+  const TIME_DELTA = Math.floor(1000 / 60 /* fps */);
+  let timeStamp = 0;
   let stepCount = 0;
 
   function updateState() {
@@ -23,6 +24,8 @@ export default (motionInc, BOXES, ctx, canvas, LOOP) => {
   }
 
   function draw(timestamp) {
+    if (!timeStamp) timeStamp = timestamp - TIME_DELTA;
+    const timeDelta = Math.floor(timestamp - timeStamp);
     const updateCount = updateState();
     if (updateCount) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -38,11 +41,14 @@ export default (motionInc, BOXES, ctx, canvas, LOOP) => {
     $updateCount.textContent = updateCount;
     console.log(
       `${timestamp}`.padStart(8),
+      `${timeDelta}`.padStart(5),
+      `${timeStamp}`.padStart(8),
       `${stepCount}`.padStart(5),
-      // `${dateNow}`.padStart(56),
       `${updateCount}`.padStart(30),
+      // `${dateNow}`.padStart(56),
     );
-    stepCount++;
+    stepCount += Math.floor(timeDelta / TIME_DELTA);
+    timeStamp = timestamp;
     (LOOP || stepCount < (CANVAS_STEPS - 1 + motionInc) / motionInc) &&
       requestAnimationFrame(draw);
   }

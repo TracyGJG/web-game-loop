@@ -4,12 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Game Loop Index</title>
+    <style>
+      div {
+        display: flex;
+        gap: 0.5em;
+      }
+      label,
+      button {
+        width: 10ch;
+        font-size: 1.25rem;
+      }
+    </style>
   </head>
   <body>
     <h1>Web Game Loop</h1>
-    <ul>
-      <li><a href="./rapid.html">Rapid</a></li>
-      <li><a href="./smooth.html">Smooth</a></li>
-    </ul>
+    <div id="$buttons">
+      <label for="$chkLoop"
+        >Loop: <input type="checkbox" id="$chkLoop"
+      /></label>
+      <button>Rapid</button><button>Smooth</button>
+    </div>
+
+    <script>
+      $buttons.addEventListener('click', (evt) => {
+        const PAGE = evt.target?.textContent?.toLowerCase();
+        const LOOP = $chkLoop.checked ? '?loop' : '';
+
+        if (evt.target.tagName === 'BUTTON') {
+          location.assign(`./${PAGE}.html${LOOP}`);
+        }
+      });
+    </script>
   </body>
 </html>

@@ -19,8 +19,7 @@
         <label for="$dateNow">Date Now</label><span id="$dateNow"></span>
       </div>
       <div>
-        <label for="$updateCount">Update Count</label
-        ><span id="$updateCount"></span>
+        <label for="$updateCount">Updates</label><span id="$updateCount"></span>
       </div>
     </main>
 
@@ -28,9 +27,17 @@
       import BOXES from './boxes.json' with { type: 'json' };
       import GAME_LOOP from './game-loop.js';
 
+      const canvas = document.querySelector('canvas');
+      const LOOP_FLAG = '?loop';
       const MOTION_INC = 1;
 
-      GAME_LOOP(MOTION_INC, BOXES);
+      GAME_LOOP(
+        MOTION_INC,
+        BOXES,
+        canvas.getContext('2d'),
+        canvas,
+        location.search === LOOP_FLAG,
+      );
     </script>
   </body>
 </html>

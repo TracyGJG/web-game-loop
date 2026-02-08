@@ -1,10 +1,7 @@
-export default (motionInc, BOXES) => {
-  const canvas = document.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
+export default (motionInc, BOXES, ctx, canvas, LOOP) => {
   const CANVAS_STEPS = 60;
   const BOX_WIDTH = canvas.width / CANVAS_STEPS;
   const BOX_HEIGHT = canvas.height / BOXES.length;
-  const LOOP = false;
   const boxes = BOXES.map(({ speed, pos }) => ({
     speed,
     pos: pos * motionInc,

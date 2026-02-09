@@ -17,7 +17,7 @@ export default (motionInc, BOXES, ctx, canvas, LOOP) => {
 
       if (!step) {
         stateChanged.push(speed);
-        boxes[idx].pos = (pos += motionInc) % 60;
+        boxes[idx].pos = (pos += motionInc) % CANVAS_STEPS;
       }
     });
     return stateChanged.join();

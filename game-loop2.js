@@ -1,4 +1,4 @@
-export default (BOXES, ctx, canvas, LOOP, motionInc) => {
+export default (canvas, ctx, BOXES, LOOP, motionInc) => {
   // const FIXED_DT = 1 / 60; Use ms not sec
   // const DROP_INTERVAL = 0.5; Use motionInc
   const FIXED_DT = 1000 / 60;
@@ -10,10 +10,10 @@ export default (BOXES, ctx, canvas, LOOP, motionInc) => {
     pos: 0,
   }));
 
-  // let lastTime = performance.now() / 1000; Use timestamp in ms
+  // let lastTime = performance.now() / 1000; Use timeStamp in ms
   // let accumulator = 0;
   // let dropTimer = 0; Use stepCounter
-  let timestamp = performance.now();
+  let timeStamp = performance.now();
   let accumulator = 0;
   let stepCounter = 0;
 
@@ -48,9 +48,9 @@ export default (BOXES, ctx, canvas, LOOP, motionInc) => {
   function frame(now) {
     // const now = performance.now() / 1000; Use arg `now` in ms
     // let delta = now - lastTime;
-    const delta = now - timestamp;
+    const delta = now - timeStamp;
     // lastTime = now;
-    timestamp = now;
+    timeStamp = now;
     // accumulator += delta;
     accumulator += delta;
 

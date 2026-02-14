@@ -1,4 +1,5 @@
-export default (motionInc, BOXES, ctx, canvas, LOOP) => {
+export default (canvas, ctx, BOXES, LOOP, motionInc) => {
+  const TIME_DELTA = Math.floor(1000 / 60 /* fps */);
   const CANVAS_STEPS = 60;
   const BOX_WIDTH = canvas.width / CANVAS_STEPS;
   const BOX_HEIGHT = canvas.height / BOXES.length;
@@ -6,14 +7,14 @@ export default (motionInc, BOXES, ctx, canvas, LOOP) => {
     speed: Math.floor(60 / speed),
     pos: pos * motionInc,
   }));
-  const TIME_DELTA = Math.floor(1000 / 60 /* fps */);
+
   let timeStamp = performance.now();
-  let stepCount = 0;
+  let stepCounter = 0;
 
   function updateState() {
     let stateChanged = [];
     boxes.forEach(({ speed, pos }, idx) => {
-      const step = stepCount % speed;
+      const step = stepCounter % speed;
 
       if (!step) {
         stateChanged.push(speed);
@@ -45,22 +46,22 @@ export default (motionInc, BOXES, ctx, canvas, LOOP) => {
     }
     const dateNow = Date();
     $timestamp.textContent = timestamp;
-    $stepCount.textContent = `${stepCount} (${stepCount % CANVAS_STEPS})`;
+    $stepCount.textContent = `${stepCounter} (${stepCounter % CANVAS_STEPS})`;
     $dateNow.textContent = dateNow;
     $updateCount.textContent = updateCount;
-    stepCount += multiple;
+    stepCounter += multiple;
     console.log(
       `${timestamp}`.padStart(8),
       `${timeDelta}`.padStart(5),
       `${timeStamp}`.padStart(8),
-      `${stepCount}`.padStart(5),
+      `${stepCounter}`.padStart(5),
       `${updateCount}`.padStart(30),
       `${dateNow}`.padStart(56),
     );
 
     multiple && (timeStamp = timestamp);
 
-    (LOOP || stepCount < CANVAS_STEPS / motionInc) &&
+    (LOOP || stepCounter < CANVAS_STEPS / motionInc) &&
       requestAnimationFrame(draw);
   }
 

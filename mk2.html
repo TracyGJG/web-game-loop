@@ -19,7 +19,7 @@
       const LOOP_FLAG = params.get('loop') === 'true';
       const MOTION_INC = +params.get('motion');
 
-      GAME_LOOP(BOXES, canvas.getContext('2d'), canvas, LOOP_FLAG, MOTION_INC);
+      GAME_LOOP(canvas, canvas.getContext('2d'), BOXES, LOOP_FLAG, MOTION_INC);
     </script>
   </body>
 </html>

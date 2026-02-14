@@ -33,7 +33,7 @@
       const LOOP_FLAG = params.get('loop') === 'true';
       const MOTION_INC = +params.get('motion');
 
-      GAME_LOOP(MOTION_INC, BOXES, canvas.getContext('2d'), canvas, LOOP_FLAG);
+      GAME_LOOP(canvas, canvas.getContext('2d'), BOXES, LOOP_FLAG, MOTION_INC);
     </script>
   </body>
 </html>

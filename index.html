@@ -22,16 +22,27 @@
       <label for="$chkLoop"
         >Loop: <input type="checkbox" id="$chkLoop"
       /></label>
-      <button>Rapid</button><button>Smooth</button>
+      <label for="$selMotion">
+        Motion:
+        <select id="$selMotion">
+          <option value="0.1">0.1</option>
+          <option value="0.25">0.25</option>
+          <option value="0.5">0.5</option>
+          <option value="1">1</option>
+        </select>
+      </label>
+      <button>Mk1</button>
+      <button>Mk2</button>
     </div>
 
     <script>
       $buttons.addEventListener('click', (evt) => {
         const PAGE = evt.target?.textContent?.toLowerCase();
-        const LOOP = $chkLoop.checked ? '?loop' : '';
+        const LOOP = `&loop=${$chkLoop.checked}`;
+        const MOTION = `?motion=${$selMotion.value}`;
 
         if (evt.target.tagName === 'BUTTON') {
-          location.assign(`./${PAGE}.html${LOOP}`);
+          location.assign(`./${PAGE}.html${MOTION}${LOOP}`);
         }
       });
     </script>

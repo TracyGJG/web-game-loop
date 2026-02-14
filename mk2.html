@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Game Loop Mk 2</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas width="1200" height="280"></canvas>
+
+    <script type="module">
+      import BOXES from './boxes.json' with { type: 'json' };
+      import GAME_LOOP from './game-loop2.js';
+
+      const canvas = document.querySelector('canvas');
+
+      const params = new URL(document.location).searchParams;
+      const LOOP_FLAG = params.get('loop') === 'true';
+      const MOTION_INC = +params.get('motion');
+
+      GAME_LOOP(BOXES, canvas.getContext('2d'), canvas, LOOP_FLAG, MOTION_INC);
+    </script>
+  </body>
+</html>

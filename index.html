@@ -7,6 +7,9 @@
     <style>
       body {
         min-height: calc(100vh - 1em);
+        display: grid;
+        grid-template-rows: 4em 4em auto;
+        gap: 1em;
       }
       div {
         display: flex;
@@ -17,16 +20,14 @@
         width: 10ch;
         font-size: 1.25rem;
       }
-
       iframe {
         display: inline-block;
-        position: absolute;
-        margin-block: 2em;
         height: 28em;
         width: 58em;
       }
     </style>
   </head>
+
   <body>
     <h1>Web Game Loop</h1>
     <div id="$buttons">

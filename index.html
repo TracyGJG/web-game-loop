@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Game Loop Index</title>
     <style>
+      body {
+        min-height: calc(100vh - 1em);
+      }
       div {
         display: flex;
         gap: 0.5em;
@@ -13,6 +16,14 @@
       button {
         width: 10ch;
         font-size: 1.25rem;
+      }
+
+      iframe {
+        display: inline-block;
+        position: absolute;
+        margin-block: 2em;
+        height: 28em;
+        width: 58em;
       }
     </style>
   </head>
@@ -35,6 +46,7 @@
       <button>Mk2</button>
       <button>Mk3</button>
     </div>
+    <iframe id="$ifrm" src="" frameborder="1"></iframe>
 
     <script>
       $buttons.addEventListener('click', (evt) => {
@@ -43,7 +55,8 @@
         const MOTION = `?motion=${$selMotion.value}`;
 
         if (evt.target.tagName === 'BUTTON') {
-          location.assign(`./${PAGE}.html${MOTION}${LOOP}`);
+          // location.assign(`./${PAGE}.html${MOTION}${LOOP}`);
+          $ifrm.src = `./${PAGE}.html${MOTION}${LOOP}`;
         }
       });
     </script>
